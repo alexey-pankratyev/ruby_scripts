@@ -48,13 +48,12 @@ class Createsrv
           Trollop::die "When Fail to specify servers, it lists the server in a column, the first parameter of the server name, IP address second!" unless ser[index][1].gsub(/"/,'') =~ /^\d+\.\d+\.\d+\.\d+/
         end
       end
-    elsif !@tag
-      @tag=''
     else
       Trollop::die "Need at options:\n--project, --tag, --file\nOR\n--project, --tag, --servername, --ip"
     end
 
     ser.each do |i|
+      @tag='' if  @tag.nil?
       nodename=i[0]
       ip=i[1]
       @data<<{nodename => {'description' => nodename,
