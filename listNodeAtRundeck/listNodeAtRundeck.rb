@@ -10,7 +10,7 @@ $file='/tmp/test.yml'
 
 class GetData
 	
-	DBCON=[ host: "ea1-osr-adm-db2", port: 5432, dbname: "osr-auth", user: "service_user", password: "[bhcj[cjg" ]
+	DBCON=[ host: "db2", port: 5432, dbname: "os", user: "user", password: "****" ]
 
 	private_constant :DBCON
 
@@ -24,11 +24,28 @@ class GetData
 		@ser.each do |ser|
 			nodename=ser.gsub(/\.unix\.tensor\.ru$|\.corp\.tensor\.ru$/, '')
 			case ser
-			when  /^osr/
-				tagunix='unix-osr'
-				tagswin='win-osr'
-			when /\-u\d+\-db/
-				tagunix='osr-db'
+			when /^osr-u\d{1,4}-bl1/
+				tagunix='osr-bl-1-unix'
+			when /^osr-u\d{1,4}-bl2/
+				tagunix='osr-bl-2-unix'
+			when /^osr-u\d{1,4}-bl3/
+				tagunix='osr-bl-3-unix'
+			when /^osr-u\d{1,4}-bl4/
+				tagunix='osr-bl-4-unix'
+			when /^csr-nomcat-bl1|^osr-rev-bl1/
+				tagunix='other-bl-1-unix'
+			when /^csr-nomcat-bl2|osr-rev-bl2|csr-authlog-bl2/
+				tagunix='other-bl-2-unix'
+			when /^osr-rev-bl3/
+				tagunix='other-bl-3-unix'
+			when /^osr-u\d{1,4}-db(1|3)|osr-demo-db1|u7-db2|!u7-db1/
+				tagunix='osr-db-master'
+			when /^osr-u\d{1,4}-db(2|4)|u7-db1|!u7-db2/
+				tagunix='osr-db-slave'
+			when /^authlog2-db/
+				tagunix='osr-general-db-master'
+			when /csr-spp-bl/
+				tagunix='spp_BL_linux'				 
 			else
 				tagunix=''
 				tagswin=''
